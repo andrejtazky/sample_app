@@ -19,6 +19,7 @@ before_filter :admin_user,   :only => :destroy
   
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
   end
 
@@ -59,9 +60,9 @@ before_filter :admin_user,   :only => :destroy
 	
    private
 
-    def authenticate
-      deny_access unless signed_in?
-    end
+  #  def authenticate
+  #   deny_access unless signed_in?
+  #  end
 
   def correct_user
       @user = User.find(params[:id])
